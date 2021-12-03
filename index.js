@@ -6,6 +6,7 @@ var cors = require('cors');
 const enzonaRoutes = require("./routes/enzona_route")
 
 //midlewares
+app.use(express.static('static'));
 app.use(express.json());
 app.use(morgan('dev'));
 app.use(cors());
