@@ -4,6 +4,6 @@ const router = express.Router();
 const {ENZONA_bridge,ENZONA_bridge_unbody} = require("../controller/controller_enzona")
 
 router.post("/", ENZONA_bridge);
-router.post("/unbody", ENZONA_bridge_unbody);
+router.post("/json", ENZONA_bridge_unbody);
 
 module.exports = router;

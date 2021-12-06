@@ -47,7 +47,7 @@ const ENZONA_bridge = async (req, res) => {
 const ENZONA_bridge_unbody = async (req, res) => {
     try {
         process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-        const {url, credential} = req.body;
+        const {url, body, credential} = req.body;
         const data = `${credential.key}:${credential.secret}`;
         const buff = Buffer.from(data, "utf8");
         const base64data = buff.toString('base64');
@@ -64,13 +64,11 @@ const ENZONA_bridge_unbody = async (req, res) => {
         .then(async (result) => {
             const config2 = {
                 headers: {
-                    'Authorization':`Bearer ${result.data.access_token}`
+                    'Accept': 'application/json','Content-Type': 'application/json','Authorization':`Bearer ${result.data.access_token}`
                 }
               } 
-            console.log(config2)
-            await axios.post(`https://apisandbox.enzona.net/payment/v1.0.0/payments/9e0942c10157494383326ff79709f234/complete`,{ headers: {'Authorization': 'Bearer 806ac2b5-eeca-3948-814d-409bc940ec77'}})
+            await axios.post(url,body,config2)
             .then((result) => {
-                console.log(result)
                 res.json(result.data)
             
             })
