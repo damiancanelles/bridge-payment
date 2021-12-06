@@ -4,6 +4,7 @@ const ENZONA_bridge = async (req, res) => {
     try {
         process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
         const {url, body, credential} = req.body;
+        const bodyObjs = JSON.parse(body);
         const data = `${credential.key}:${credential.secret}`;
         const buff = Buffer.from(data, "utf8");
         const base64data = buff.toString('base64');
@@ -23,7 +24,7 @@ const ENZONA_bridge = async (req, res) => {
                     'Accept': 'application/json','Content-Type': 'application/json','Authorization':`Bearer ${result.data.access_token}`
                 }
               } 
-            await axios.post(url,body,config2)
+            await axios.post(url,bodyObjs,config2)
             .then((result) => {
                 res.json(result.data)
             
