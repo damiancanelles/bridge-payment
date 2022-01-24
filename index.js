@@ -4,6 +4,7 @@ require("dotenv").config();
 const morgan = require("morgan");
 var cors = require('cors');
 const enzonaRoutes = require("./routes/enzona_route")
+const transfermovilRoutes = require("./routes/transfermovil_route")
 
 //midlewares
 app.use(express.static('static'));
@@ -13,6 +14,7 @@ app.use(cors());
 
 //routes
 app.use("/enzona",enzonaRoutes);
+app.use("/transfermovil",transfermovilRoutes);
 
 //config
 let port = process.env.PORT || 5000;
