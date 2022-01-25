@@ -28,8 +28,8 @@ const test = async (req, res) => {
         await axios.post('https://200.13.144.60:15001/RestExternalPayment.svc/payOrder',data,config1)
         .then(async (result) => {
             const cosas = result
-            console.log()
-            res.json(result)
+            console.log(cosas)
+            res.json(cosas)
         })
         .catch((err) => {
             console.log(err)
