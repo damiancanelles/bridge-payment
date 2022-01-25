@@ -3,6 +3,6 @@ const router = express.Router();
 
 const {test} = require("../controller/controller_transfermovil")
 
-router.post("/test", test);
+router.get("/test", test);
 
 module.exports = router;
