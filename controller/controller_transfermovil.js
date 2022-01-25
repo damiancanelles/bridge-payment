@@ -29,7 +29,7 @@ const test = async (req, res) => {
         .then(async (result) => {
             const cosas = result
             console.log(cosas)
-            res.json(cosas)
+            res.json(cosas.data)
         })
         .catch((err) => {
             console.log(err)
