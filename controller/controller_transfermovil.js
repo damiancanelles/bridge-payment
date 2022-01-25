@@ -25,7 +25,7 @@ const test = async (req, res) => {
                 'Accept': 'application/json','Content-Type': 'application/json'
             }
           };
-        await axios.post('https://200.13.144.60:15001/RestExternalPayment.svc/payOrder',data,config1)
+        await axios.post('https://200.13.144.60:15001/RestExternalPayment.svc/payOrder/',data,config1)
         .then(async (result) => {
             const cosas = result
             console.log()
