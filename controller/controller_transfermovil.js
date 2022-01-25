@@ -28,10 +28,13 @@ const test = async (req, res) => {
         await axios.post('https://200.13.144.60:15001/RestExternalPayment.svc/payOrder',data,config1)
         .then(async (result) => {
             const cosas = result
-            res.json(cosas)
+            console.log()
+            res.json(result)
         })
         .catch((err) => {
-            res.json(err)
+            res.status(500).json({
+                message: "Server Error"
+            })
         })  
     } catch (error) {
         console.log(error);
