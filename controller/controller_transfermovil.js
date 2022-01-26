@@ -58,7 +58,7 @@ const TRANSFERMOVIL_bridge = async (req, res) => {
         const base64data = buff.toString('base64')
         const config1 = {
             headers: {
-              'Content-Type': 'application/json', 'username': `${credential.user}`, 'source': `${credential.source}`, 'password': `${base64data}`
+                'Accept': 'application/json','Content-Type': 'application/json', 'username': `${credential.user}`, 'source': `${credential.source}`, 'password': `${base64data}`
             }
           }
          
@@ -89,7 +89,7 @@ const TRANSFERMOVIL_bridge_unbody = async (req, res) => {
         const base64data = buff.toString('base64')
         const config1 = {
             headers: {
-              'Content-Type': 'application/json', 'username': `${credential.user}`, 'source': `${credential.source}`, 'password': `${base64data}`
+                'Accept': 'application/json','Content-Type': 'application/json', 'username': `${credential.user}`, 'source': `${credential.source}`, 'password': `${base64data}`
             }
           }
         console.log(body)
