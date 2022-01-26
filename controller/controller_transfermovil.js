@@ -87,7 +87,7 @@ const TRANSFERMOVIL_bridge_unbody = async (req, res) => {
         const {url, body, credential} = req.body;
         const now = new Date();
         const datenow = date.format(now, 'DMYYYY')
-        const data = sha512(`${credential.user}${datenow}${credential.source}externalpayment`);
+        const data = sha512(`${credential.user}${datenow}externalpayment${credential.source}`);
         const buff = Buffer.from(data, "utf8");
         const base64data = buff.toString('base64')
         const config1 = {
