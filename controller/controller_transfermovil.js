@@ -92,13 +92,16 @@ const TRANSFERMOVIL_bridge_unbody = async (req, res) => {
               'Content-Type': 'application/json', 'username': `${credential.user}`, 'source': `${credential.source}`, 'password': `${base64data}`
             }
           }
-         
+        console.log(body)
+        console.log(base64data)
+        console.log(url)
         await axios.post(url,body,config1)
         .then(async (result) => {
             console.log(result)
             res.json(result.data)
         })
         .catch((err) => {
+            console.log(err)
             res.json(err)
         })  
     } catch (error) {
