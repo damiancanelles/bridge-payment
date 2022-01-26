@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
 
-const {test} = require("../controller/controller_transfermovil")
+const {test, TRANSFERMOVIL_bridge, TRANSFERMOVIL_bridge_unbody} = require("../controller/controller_transfermovil")
 
 router.get("/test", test);
+router.post("/", TRANSFERMOVIL_bridge);
+router.post("/json", TRANSFERMOVIL_bridge_unbody);
 
 module.exports = router;

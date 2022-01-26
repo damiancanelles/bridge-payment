@@ -1,5 +1,6 @@
 const axios = require('axios').default;
-
+var sha512 = require('js-sha512').sha512;
+const date = require('date-and-time');
 
 const test = async (req, res) => {
     try {
@@ -10,7 +11,7 @@ const test = async (req, res) => {
                          {
                            "Amount": 1,
                 "Phone": "5352880000",
-                "Currency": "CUP",
+                "Currency": "CUP", 
                 "Description": "test",
                 "ExternalId": "1478", 
                 "Source": "12",
@@ -45,9 +46,72 @@ const test = async (req, res) => {
     }
 }
 
+const TRANSFERMOVIL_bridge = async (req, res) => {
+    try {
+        process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+        const {url, body, credential} = req.body;
+        const now = new Date();
+        const datenow = date.format(now, 'DMYYYY')
+        const bodyObjs = JSON.parse(body);
+        const data = sha512(`${credential.user}${datenow}externalpayment${credential.source}`);
+        const buff = Buffer.from(data, "utf8");
+        const base64data = buff.toString('base64')
+        const config1 = {
+            headers: {
+              'Content-Type': 'application/json', 'username': `${credential.user}`, 'source': `${credential.source}`, 'password': `${base64data}`
+            }
+          }
+         
+        await axios.post(url,bodyObjs,config1)
+        .then(async (result) => {
+            console.log(result)
+            res.json(result.data)
+        })
+        .catch((err) => {
+            res.json(err)
+        })  
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: "Server Error"
+        })
+    }
+}
 
+const TRANSFERMOVIL_bridge_unbody = async (req, res) => {
+    try {
+        process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+        const {url, body, credential} = req.body;
+        const now = new Date();
+        const datenow = date.format(now, 'DMYYYY')
+        const data = sha512(`${credential.user}${datenow}externalpayment${credential.source}`);
+        const buff = Buffer.from(data, "utf8");
+        const base64data = buff.toString('base64')
+        const config1 = {
+            headers: {
+              'Content-Type': 'application/json', 'username': `${credential.user}`, 'source': `${credential.source}`, 'password': `${base64data}`
+            }
+          }
+         
+        await axios.post(url,body,config1)
+        .then(async (result) => {
+            console.log(result)
+            res.json(result.data)
+        })
+        .catch((err) => {
+            res.json(err)
+        })  
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: "Server Error"
+        })
+    }
+}
 
 
 module.exports = {
     test,
+    TRANSFERMOVIL_bridge,
+    TRANSFERMOVIL_bridge_unbody
 }
