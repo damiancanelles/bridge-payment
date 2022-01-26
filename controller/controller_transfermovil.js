@@ -68,7 +68,10 @@ const TRANSFERMOVIL_bridge = async (req, res) => {
             res.json(result.data)
         })
         .catch((err) => {
-            res.json(err)
+            console.log(err)
+            res.status(500).json({
+                message: "Server Error"
+            })
         })  
     } catch (error) {
         console.log(error);
@@ -84,7 +87,7 @@ const TRANSFERMOVIL_bridge_unbody = async (req, res) => {
         const {url, body, credential} = req.body;
         const now = new Date();
         const datenow = date.format(now, 'DMYYYY')
-        const data = sha512(`${credential.user}${datenow}externalpayment${credential.source}`);
+        const data = sha512(`${credential.user}${datenow}${credential.source}externalpayment`);
         const buff = Buffer.from(data, "utf8");
         const base64data = buff.toString('base64')
         const config1 = {
@@ -102,7 +105,9 @@ const TRANSFERMOVIL_bridge_unbody = async (req, res) => {
         })
         .catch((err) => {
             console.log(err)
-            res.json(err)
+            res.status(500).json({
+                message: "Server Error"
+            })
         })  
     } catch (error) {
         console.log(error);
