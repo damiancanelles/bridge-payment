@@ -86,19 +86,24 @@ const TRANSFERMOVIL_bridge_unbody = async (req, res) => {
         process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
         const {url, body, credential} = req.body;
         const now = new Date();
-        const datenow = date.format(now, 'MDYYYY')
+        const datenow = date.format(now, 'DMYYYY')
         const data = sha512(`${credential.user}${datenow}externalpayment${credential.source}`);
         const buff = Buffer.from(data, "utf8");
         const base64data = buff.toString('base64')
         const config1 = {
             headers: {
-                'Accept': 'application/json','Content-Type': 'application/json', 'username': `${credential.user}`, 'source': `${credential.source}`, 'password': `${base64data}`
+                'Accept': 'application/json','Content-Type': 'application/json', 'username': `${credential.user}`, 'source': `${credential.source}`, 'password': `${base64data}`, 
             }
           }
         console.log(body)
         console.log(base64data)
         console.log(url)
-        await axios.post(url,body,config1)
+        await axios.post(url,body,config1, {
+            auth: {
+              username: `${credential.user}`,
+              password: `${base64data}`
+            }
+          })
         .then(async (result) => {
             console.log(result)
             res.json(result.data)
@@ -117,9 +122,18 @@ const TRANSFERMOVIL_bridge_unbody = async (req, res) => {
     }
 }
 
+const complete = async (req, res) => {
+    const {Source, BankId, TmId, Phone, Msg, ExternalId, Status, Bank} = req.body
+    res.json({
+        "Success": true,
+        "Resultmsg": "Mensaje ok",
+        "Status": 1
+    })
+}
 
 module.exports = {
     test,
     TRANSFERMOVIL_bridge,
-    TRANSFERMOVIL_bridge_unbody
+    TRANSFERMOVIL_bridge_unbody,
+    complete
 }
