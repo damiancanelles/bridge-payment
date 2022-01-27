@@ -120,6 +120,7 @@ const TRANSFERMOVIL_bridge_unbody = async (req, res) => {
 }
 
 const complete = async (req, res) => {
+    console.log(req.body)
     const config1 = {
         headers: {
             'Accept': 'application/json','Content-Type': 'application/json', 
