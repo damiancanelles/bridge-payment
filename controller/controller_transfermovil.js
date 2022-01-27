@@ -54,7 +54,7 @@ const TRANSFERMOVIL_bridge = async (req, res) => {
         const datenow = date.format(now, 'DMYYYY')
         const bodyObjs = JSON.parse(body);
         const data = sha512(`${credential.user}${datenow}externalpayment${credential.source}`);
-        const buff = Buffer.from(data, "utf8");
+        const buff = Buffer.from(data, "hex");
         const base64data = buff.toString('base64')
         const config1 = {
             headers: {
@@ -95,7 +95,6 @@ const TRANSFERMOVIL_bridge_unbody = async (req, res) => {
                 'Accept': 'application/json','Content-Type': 'application/json', 'username': `${credential.user}`, 'source': `${credential.source}`, 'password': `${base64data}`, 
             }
           }
-        console.log(base64data)
         await axios.post(url,body,config1, {
             auth: {
               username: `${credential.user}`,
@@ -121,7 +120,18 @@ const TRANSFERMOVIL_bridge_unbody = async (req, res) => {
 }
 
 const complete = async (req, res) => {
-    const {Source, BankId, TmId, Phone, Msg, ExternalId, Status, Bank} = req.body
+    const config1 = {
+        headers: {
+            'Accept': 'application/json','Content-Type': 'application/json', 
+        }
+      }
+    await axios.post("https://sibucan-microservice.herokuapp.com/api/transfermovil/paymentintent/complete",req.body,config1)
+    .then(async (result) => {
+        console.log("Payment intent complete")
+    })
+    .catch((err) => {
+        console.log("Error")
+    })
     res.json({
         "Success": true,
         "Resultmsg": "Mensaje ok",
