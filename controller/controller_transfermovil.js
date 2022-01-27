@@ -88,16 +88,14 @@ const TRANSFERMOVIL_bridge_unbody = async (req, res) => {
         const now = new Date();
         const datenow = date.format(now, 'DMYYYY')
         const data = sha512(`${credential.user}${datenow}externalpayment${credential.source}`);
-        const buff = Buffer.from(data, "utf8");
+        const buff = Buffer.from(data, "hex");
         const base64data = buff.toString('base64')
         const config1 = {
             headers: {
                 'Accept': 'application/json','Content-Type': 'application/json', 'username': `${credential.user}`, 'source': `${credential.source}`, 'password': `${base64data}`, 
             }
           }
-        console.log(body)
         console.log(base64data)
-        console.log(url)
         await axios.post(url,body,config1, {
             auth: {
               username: `${credential.user}`,
