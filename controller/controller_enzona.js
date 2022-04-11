@@ -17,7 +17,7 @@ const ENZONA_bridge = async (req, res) => {
             }
           }
          
-        await axios.post('https://apisandbox.enzona.net/token',params,config1)
+        await axios.post('https://api.enzona.net/token',params,config1)
         .then(async (result) => {
             const config2 = {
                 headers: {
@@ -60,7 +60,7 @@ const ENZONA_bridge_unbody = async (req, res) => {
             }
           }
          
-        await axios.post('https://apisandbox.enzona.net/token',params,config1)
+        await axios.post('https://api.enzona.net/token',params,config1)
         .then(async (result) => {
             const config2 = {
                 headers: {

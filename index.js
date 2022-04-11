@@ -5,7 +5,6 @@ const morgan = require("morgan");
 var cors = require('cors');
 const enzonaRoutes = require("./routes/enzona_route")
 const transfermovilRoutes = require("./routes/transfermovil_route")
-
 //midlewares
 app.use(express.static('static'));
 app.use(express.json());
