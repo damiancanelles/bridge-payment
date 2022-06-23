@@ -127,6 +127,7 @@ const complete = async (req, res) => {
         }
       }
     await axios.post("https://sibucan-microservice.herokuapp.com/api/transfermovil/paymentintent/complete",req.body,config1)
+    await axios.post("https://sibucan-microservice-staging.herokuapp.com/api/transfermovil/paymentintent/complete",req.body,config1)
     .then(async (result) => {
         console.log("Payment intent complete")
     })
